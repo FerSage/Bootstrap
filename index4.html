@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .text-clip {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+            flex: 1;
+        }
+
+
+        footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .profile-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .profile-container h3 {
+            margin-bottom: 15px;
+        }
+
+        .btn-logout {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .btn-logout:hover {
+            background-color: #c82333;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 1rem;
+        }
+
+        .btn-view {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .btn-view:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Личный кабинет</h1>
+        <nav class="navbar navbar-expand-lg navbar-light bg-">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html"><img
+                        src="image/d7e6fe6c4e540f6468d8638f5008c1d9--pet-logo-cafe-logo.jpg" class="w-25 rounded-3"
+                        alt="logo"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="index.html" style="color: white;">Главная</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index4.html" style="color: white;">Личный кабинет</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index3.html" style="color: white;">Добавить объявление</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index2.html" style="color: white;">Поиск по объявлениям</a>
+                        </li>
+                        <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Регистрация
+                        </button>
+
+                        <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal1">
+                            Вход
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: black;">
+                                            Регистрация</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-start">
+                                        <form>
+                                            <div class="mb-3">
+                                                <label for="nameInput" class="form-label"
+                                                    style="color: black;">ФИО</label>
+                                                <input type="text" class="form-control" id="nameInput"
+                                                    placeholder="Введите ваше имя" id="fullName" required
+                                                    pattern="^[А-Яа-яЁё]+([ -][А-Яа-яЁё]+)*$"
+                                                    title="ФИО должно содержать только кириллицу, пробелы и тире."
+                                                    oninput="validateFio()">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="phoneInput" class="form-label"
+                                                    style="color: black;">Телефон</label>
+                                                <input type="tel" class="form-control" id="phoneInput"
+                                                    placeholder="Введите ваш номер телефона">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="emailInput" class="form-label"
+                                                    style="color: black;">Email</label>
+                                                <input type="email" class="form-control" id="emailInput"
+                                                    placeholder="Введите ваш email">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="passwordInput" class="form-label"
+                                                    style="color: black;">Пароль</label>
+                                                <input type="password" class="form-control" id="passwordInput"
+                                                    placeholder="Введите пароль">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="passwordConfirmInput" class="form-label"
+                                                    style="color: black;">Подтверждение пароля</label>
+                                                <input type="password" class="form-control" id="passwordConfirmInput"
+                                                    placeholder="Повторите пароль">
+                                            </div>
+                                            <div class="mb-3 form-check">
+                                                <input type="checkbox" class="form-check-input" id="dataAgreementCheck"
+                                                    required>
+                                                <label class="form-check-label" for="dataAgreementCheck"
+                                                    style="color: black;">Я соглашаюсь на обработку данных</label>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Закрыть</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                const form = document.getElementById("registrationForm");
+                                const passwordInput = document.getElementById("passwordInput");
+                                const passwordConfirmInput = document.getElementById("passwordConfirmInput");
+
+                                passwordConfirmInput.addEventListener("input", function () {
+                                    if (passwordInput.value !== passwordConfirmInput.value) {
+                                        passwordConfirmInput.setCustomValidity("Пароли не совпадают");
+                                    } else {
+                                        passwordConfirmInput.setCustomValidity("");
+                                    }
+                                });
+
+                                form.addEventListener("submit", function (event) {
+                                    if (!form.checkValidity()) {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                    }
+                                    form.classList.add("was-validated");
+                                });
+                            });
+                            function validateFio() {
+                                const fullNameInput = document.getElementById('nameInput');
+                                const pattern = /^[А-Яа-яЁё]+([ -][А-Яа-яЁё]+)*$/;
+
+                                if (pattern.test(fullNameInput.value)) {
+                                    fullNameInput.setCustomValidity("");
+                                } else {
+                                    fullNameInput.setCustomValidity("ФИО должно содержать только кириллицу, пробелы и тире.");
+                                }
+                            }
+                        </script>
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: black;">Вход
+                                        </h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-start">
+                                        <form>
+                                            <div class="mb-3">
+                                                <label for="exampleInputEmail1" class="form-label"
+                                                    style="color: black;">Email</label>
+                                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                                    aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleInputPassword1" class="form-label"
+                                                    style="color: black;">Пароль</label>
+                                                <input type="password" class="form-control" id="exampleInputPassword1">
+                                            </div>
+                                            <div class="mb-3 form-check">
+                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                                <label class="form-check-label" for="exampleCheck1"
+                                                    style="color: black;">Запомнить меня</label>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Войти</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Закрыть</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" list="pets" placeholder="Поиск"
+                            aria-label="Search">
+                        <button class="btn btn-primary" onclick="">Поиск</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="profile-container">
+            <h3>Профиль</h3>
+            <p><strong>ФИО:</strong> Иванов Иван Иванович</p>
+            <p><strong>Почта:</strong> ivanov@example.com</p>
+            <p><strong>Телефон:</strong> +7 (123) 456-78-90</p>
+            <p><strong>Дата регистрации:</strong> 27-11-2024</p>
+            <button onclick="editCompanyInfo()">Редактировать информацию</button>
+            <div class="card-container">
+                <div class="card">
+                    <img src="image/cf81727a8e15c0b25d33419eb485a13e.jpg" alt="Собака">
+                    <div class="card-body">
+                        <h5 class="card-title">Собака</h5>
+                        <p class="card-text text-clip">Собака рыжая, была утеряна в красногвардейчком районе</p>
+                        <button type="button" class="btn btn-view" data-bs-toggle="modal"
+                            data-bs-target="#animalModal2">Посмотреть</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="image/20891bee870181d10f12e69541342613.jpg" alt="Кошка">
+                    <div class="card-body">
+                        <h5 class="card-title">Кошка</h5>
+                        <p class="card-text text-clip">Потерялась кошка, пушистая, серая. Любит играть, ласковая.</p>
+                        <button type="button" class="btn btn-view" data-bs-toggle="modal"
+                            data-bs-target="#animalModal1">Посмотреть</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="image/Goat - via Canva-2400x1255-1200x628.jpg" alt="Корова">
+                    <div class="card-body">
+                        <h5 class="card-title">Коза</h5>
+                        <p class="card-text text-clip">Потерялась коза, последний раз видели в здании Московского вокзала г.
+                            Санкт-Петербург. Коза белая, пуховая.</p>
+                        <button type="button" class="btn btn-view" data-bs-toggle="modal"
+                            data-bs-target="#animalModal3">Посмотреть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="animalModal1" tabindex="-1" aria-labelledby="animalModal1Label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="animalModal1Label">Информация о животном</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>ID:</strong> 14</p>
+                        <p><strong>Вид животного:</strong> Кошка</p>
+                        <p><strong>Описание:</strong> Потерялась кошка, пушистая, серая. Любит играть, ласковая.</p>
+                        <p><strong>Номер чипа:</strong> ca-001-spb</p>
+                        <p><strong>Район:</strong> Василиостровский</p>
+                        <p><strong>Дата:</strong> 24-03-2020</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="animalModal2" tabindex="-1" aria-labelledby="animalModal2Label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="animalModal2Label">Информация о животном</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>ID:</strong> 42</p>
+                        <p><strong>Вид животного:</strong> Собака</p>
+                        <p><strong>Описание:</strong> Пропала собака, рыжая, с черным пятном на ухе.</p>
+                        <p><strong>Номер чипа:</strong> do-123-spb</p>
+                        <p><strong>Район:</strong> Приморский</p>
+                        <p><strong>Дата:</strong> 22-07-2023</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="animalModal3" tabindex="-1" aria-labelledby="animalModal3Label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="animalModal3Label">Информация о животном</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>ID:</strong> 18</p>
+                        <p><strong>Вид животного:</strong> Коза</p>
+                        <p><strong>Описание:</strong> Потерялась коза, последний раз видели в здании Московского вокзала
+                            г. Санкт-Петербург. Коза белая, пуховая.</p>
+                        <p><strong>Номер чипа:</strong> go-011-spb</p>
+                        <p><strong>Район:</strong> Центральный</p>
+                        <p><strong>Дата:</strong> 14-03-2022</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-danger btn-logout" data-bs-toggle="modal" data-bs-target="#logoutModal">Выйти</button>
+
+    </main>
+
+    <footer class="border-bottom bg-primary">
+        <p class="text-white p-3" style="text-align: center;">GET PET BACK © Copyright, 2022 Все права защищены</p>
+    </footer>
+
+    <!-- Модальное окно для выхода -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Подтверждение выхода</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    Вы уверены, что хотите выйти из аккаунта?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-danger" onclick="logout()">Выйти</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function logout() {
+            alert("Вы вышли из аккаунта.");
+            window.location.href = "index.html";
+        }
+        function editCompanyInfo() {
+            alert("Редактирование информации пользователя.");
+        }
+    </script>
+</body>
+
+</html>
